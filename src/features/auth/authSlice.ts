@@ -76,6 +76,10 @@ const authSlice = createSlice({
     reducers: {
         setUser: (state) =>
         (state = JSON.parse(localStorage.getItem('profile') as string)),
+        googleLogin : (state,  { payload }: PayloadAction<Profile>) =>{
+          localStorage.setItem('profile', JSON.stringify(payload));
+          (state = { ...payload, error: false, errorMsg: '' })
+        },
         logoutUser: (state) => (state = initialState),
         clearAuthError: (state) =>
         (state = { ...state, error: false, errorMsg: '' }),
@@ -105,6 +109,7 @@ const authSlice = createSlice({
 
 export const {
   setUser: setUserActionCreator,
+  googleLogin,
   incrementMemoriesNumber: incrementMemoriesNumberActionCreator,
   decrementMemoriesNumber: decrementMemoriesNumberActionCreator,
   logoutUser: logoutUserActionCreator,

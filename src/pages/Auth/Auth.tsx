@@ -12,13 +12,15 @@ import {
   register,
   login,
   clearAuthErrorActionCreator,
+  googleLogin,
 } from "../../features/auth/authSlice";
 
-import { AuthFormData, FormModeState, ProfileState } from "../../type";
+import { AuthFormData, FormModeState, Profile, ProfileState } from "../../type";
 import useForm from "../../hooks/useForm";
 
 import { Spinner } from "../../components";
 import { Input } from "../../components/controls";
+import Icon from "./icon";
 
 import {
   Avatar,
@@ -40,6 +42,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyles from "./styles";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { toggleSignInActionCreator, toggleSignUpActionCreator } from "../../features/auth/signupMode";
+import GoogleLogin from "react-google-login";
 
 const initialFormData: AuthFormData = {
   firstName: "",
@@ -160,6 +163,28 @@ const Auth: FC = () => {
       emailRef.current?.children[1]?.children[0].focus();
     }
   }, [isSignUp]);
+
+  // @ts-ignore
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+    const profile = {
+      token,
+      user: result
+    } as Profile
+    try {
+      //dispatch({ type: AUTH, data: { result, token } });
+      dispatch(googleLogin(profile))
+
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const googleError = () =>
+    console.log("Google Sign In was unsuccessful. Try again later");
+
 
   const handleAuthModalClose = () => {
     dispatch(clearAuthErrorActionCreator());
@@ -288,6 +313,25 @@ const Auth: FC = () => {
                     >
                       {isSignUp ? "Register" : "Log In"}
                     </Button>
+                    <GoogleLogin
+                      clientId="564033717568-bu2nr1l9h31bhk9bff4pqbenvvoju3oq.apps.googleusercontent.com"
+                      render={(renderProps) => (
+                        <Button
+                          className={classes.googleButton}
+                          color="primary"
+                          fullWidth
+                          onClick={renderProps.onClick}
+                          disabled={renderProps.disabled}
+                          startIcon={<Icon />}
+                          variant="contained"
+                        >
+                          Google Sign In
+                        </Button>
+                      )}
+                      onSuccess={googleSuccess}
+                      onFailure={googleError}
+                      cookiePolicy="single_host_origin"
+                    />
                     <Grid container justifyContent="flex-end">
                       <Grid item>
                         <Button

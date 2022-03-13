@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
     width: '96%',
   },
+  googleButton: {
+    marginBottom: theme.spacing(2),
+  },
 }))
 
 export default useStyles
