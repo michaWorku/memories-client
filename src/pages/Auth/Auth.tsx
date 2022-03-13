@@ -41,7 +41,7 @@ import { TransitionProps } from "@material-ui/core/transitions";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import useStyles from "./styles";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { toggleSignInActionCreator, toggleSignUpActionCreator } from "../../features/auth/signupMode";
+import { toggleSignInActionCreator, toggleSignUpActionCreator } from "../../features/auth/signupModeSlice";
 import GoogleLogin from "react-google-login";
 
 const initialFormData: AuthFormData = {
@@ -173,7 +173,6 @@ const Auth: FC = () => {
       user: result
     } as Profile
     try {
-      //dispatch({ type: AUTH, data: { result, token } });
       dispatch(googleLogin(profile))
 
       navigate("/");
