@@ -1,8 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import authReducer from '../features/auth/authSlice'
+import signupModeReducer from '../features/auth/signupMode'
 
 export const store = configureStore({
   reducer: {
-    
+    profile : authReducer,
+    isSignUp: signupModeReducer,
   },
 });
 
