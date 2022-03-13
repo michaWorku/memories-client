@@ -1,19 +1,35 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import authReducer from '../features/auth/authSlice'
-import signupModeReducer from '../features/auth/signupMode'
-import memoryReducer from '../features/memory/memorySlice';
-import memoriesLoadingReducer from '../features/memory/memoriesLoadingSlice';
-import currentMemoryReducer from '../features/memory/currentMemory';
-import favoritesReducer from '../features/favorites/favoritesSlice';
+import {
+  authReducer,
+  signupModeReducer,
+  editModeReducer,
+  currentMemoryReducer,
+  memoryReducer,
+  favoritesReducer,
+  categoryReducer,
+  drawerReducer,
+  selectedCategoryReducer,
+  pageReducer,
+  limitReducer,
+  lastChangedMemoryReducer,
+  memoriesLoadingReducer,
+} from '../features'
 
 export const store = configureStore({
   reducer: {
-    profile : authReducer,
-    isSignUp: signupModeReducer,
-    memories: memoryReducer,
-    memoriesLoading: memoriesLoadingReducer,
-    currentMemory: currentMemoryReducer,
-    favorites: favoritesReducer,
+      isSignUp: signupModeReducer,
+      isEdit: editModeReducer,
+      profile: authReducer,
+      memories: memoryReducer,
+      memoriesLoading: memoriesLoadingReducer,
+      currentMemory: currentMemoryReducer,
+      favorites: favoritesReducer,
+      categories: categoryReducer,
+      isDrawer: drawerReducer,
+      selectedCategory: selectedCategoryReducer,
+      page: pageReducer,
+      limit: limitReducer,
+      lastChangedMemory: lastChangedMemoryReducer,
   },
 });
 

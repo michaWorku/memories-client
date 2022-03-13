@@ -33,28 +33,12 @@ const deleteMemory = async (id: string) =>{
     return response.data
 }
 
-// Add memory to Category
-const addMemoryToCategory = async (memoryId: string, categoryId: string) =>{
-    const response = await API.post(`/memories/${memoryId}`, { _id: categoryId })
-
-    return response.data
-}
-
-// Remove memory from category
-const removeMemoryFromCategories = async ( memoryId: string,
-  categoryId: string) =>{
-    const response = await API.delete(`/memories/${memoryId}/${categoryId}`)
-
-    return response.data
-}
 
 const memoryService = {
     createMemory,
     getMemories, 
     updateMemory,
     deleteMemory,
-    addMemoryToCategory,
-    removeMemoryFromCategories
 }
 
 export default memoryService
