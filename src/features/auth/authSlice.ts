@@ -104,6 +104,14 @@ const authSlice = createSlice({
                 (state = { ...state, error: true, errorMsg: payload }))
             .addCase( login.fulfilled, (state, { payload }: PayloadAction<Profile>) =>
                 (state = { ...payload, error: false, errorMsg: '' }))
+        
+        // Get profile
+        builder
+            .addCase( getProfile.rejected, (state, { payload }) =>
+              (state = { ...state, error: false, errorMsg: payload }))
+            .addCase( getProfile.fulfilled, (state, { payload }: PayloadAction<Profile>) => 
+              (state = { ...payload, error: false, errorMsg: '' })
+        )
     }
 })
 
